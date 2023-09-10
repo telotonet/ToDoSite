@@ -1,0 +1,8 @@
+{% for sub_task in sub_tasks %}
+  <li>{{ sub_task.title }}</li>
+  {% if sub_task.sub_tasks.count %}
+    <ul>
+      {% include "task_list_recursive.html" with sub_tasks=sub_task.sub_tasks.all %}
+    </ul>
+  {% endif %}
+{% endfor %}

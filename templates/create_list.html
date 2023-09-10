@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+  <h1>Создать новый список задач</h1>
+  <form method="post" id="create-list-form">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="list_name" class="form-label">Название списка задач</label>
+      <input type="text" class="form-control" id="list_name" name="list_name" placeholder="Название списка задач" required>
+    </div>
+    <ul id="tasks-container">
+      <li class="task-input mb-3">
+        <input type="text" class="form-control" id="task_0" name="tasks[]" placeholder="Задача" required>
+        <button type="button" class="btn btn-primary add-subtask" data-parent="0">Добавить подзадачу</button>
+        <ul class="subtasks-container">
+          <div class="subtask-input">
+            <input type="text" class="form-control" id="subtask_0_0" name="subtasks[0][]" placeholder="Подзадача">
+            <button type="button" class="btn btn-primary add-subtask" data-parent="0">+</button>
+          </div>
+        </ul>
+      </li>
+    </ul>
+
+    <div class="mb-3">
+      <button type="button" class="btn btn-success add-task">Добавить задачу</button>
+    </div>
+    <div class="">
+      <button type="submit" class="btn btn-primary">Создать</button>
+    </div>
+
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'main.js' %}"></script>
+{% endblock %}

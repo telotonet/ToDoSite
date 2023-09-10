@@ -1,0 +1,17 @@
+body {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+  }
+  body {
+    background-color: #333;
+  }
+  .navbar {
+    background-color: #222;
+  }
+  .navbar-dark .navbar-nav .nav-link {
+    color: white;
+  }
+  .task-input {
+    margin-bottom: 15px;
+  }
