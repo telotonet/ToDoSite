@@ -1,0 +1,8 @@
+<a href="{{list.get_absolute_url}}" class="fs-3 text-decoration-none">{{ list.title }}</a>
+<ul class='mb-3'>
+  {% for task in tasks %}
+    <li>{% include 'base_templates/task_status_base.html' with task=task %}</li>
+  {% endfor %}
+  <p class="fw-light lh-1 fs-6 mt-3">{{list.created_at|date:"d M Y H:i"}}</p>
+</ul>
+<hr>

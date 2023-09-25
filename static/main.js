@@ -1,33 +1,36 @@
-$(document).ready(function() {
-  $(".add-task").on("click", function() {
-    var newIndex = $(".task-input").length;
-    var newTaskInput = '<div class="task-input mb-3">' +
-      '<label for="task_' + newIndex + '" class="form-label">Задача</label>' +
-      '<input type="text" class="form-control" id="task_' + newIndex + '" name="tasks[]" placeholder="Задача" required>' +
-      '<button type="button" class="btn btn-primary add-subtask" data-parent="' + newIndex + '">Добавить подзадачу</button>' +
-      '<button type="button" class="btn btn-success add-task">Добавить задачу</button>' +
-      '<div class="subtasks-container">' +
-      '<ul class="subtask-input">' +
-      '<label for="subtask_' + newIndex + '_0" class="form-label">Подзадача</label>' +
-      '<input type="text" class="form-control" id="subtask_' + newIndex + '_0" name="subtasks[' + newIndex + '][]" placeholder="Подзадача">' +
-      '<button type="button" class="btn btn-primary add-subtask" data-parent="' + newIndex + '">+</button>' +
-      '</div>' +
-      '</ul>' +
-      '</div>';
+// let taskCounter = 0;
 
-    $(this).parent().before(newTaskInput);
-  });
+// function addTask() {
+//     taskCounter++;
+//     const taskList = document.querySelector('#tasks-container');
+//     const newTaskItem = document.createElement('div');
+//     newTaskItem.className = 'mt-2 d-flex justify-content-md-center';
 
-  // Добавление новых полей для подзадач
-  $("#tasks-container").on("click", ".add-subtask", function() {
-    var parentTaskIndex = $(this).data("parent");
-    var subtaskCount = $(".subtask-input").length;
-    var newSubtaskInput = '<div class="subtask-input">' +
-      '<label for="subtask_' + parentTaskIndex + '_' + subtaskCount + '" class="form-label">Подзадача</label>' +
-      '<input type="text" class="form-control" id="subtask_' + parentTaskIndex + '_' + subtaskCount + '" name="subtasks[' + parentTaskIndex + '][]" placeholder="Подзадача">' +
-      '<button type="button" class="btn btn-primary add-subtask" data-parent="' + parentTaskIndex + '">+</button>' +
-      '</div>';
+//     // Создаем элементы для задачи и кнопку удаления
+//     const taskInput = document.createElement('input');
+//     taskInput.type = 'text';
+//     taskInput.name = `tasks`;
+//     taskInput.className = 'form-control form-control-sm w-50 d-block';
+//     taskInput.placeholder = 'Задача';
+//     taskInput.required = true;
 
-    $(this).parent().before(newSubtaskInput);
-  });
-});
+//     const deleteButton = document.createElement('button');
+//     deleteButton.type = 'button';
+//     deleteButton.className = 'btn btn-sm btn-danger delete-task';
+//     deleteButton.textContent = 'Удалить';
+
+//     // Добавляем элементы в список задач
+//     newTaskItem.appendChild(taskInput);
+//     newTaskItem.appendChild(deleteButton);
+//     taskList.appendChild(newTaskItem);
+
+//     // Добавляем обработчик для кнопки удаления
+//     deleteButton.addEventListener('click', () => {
+//         taskList.removeChild(newTaskItem);
+//         taskCounter--
+//     });
+
+//     addSubtaskButtonListeners();
+// }
+
+// document.querySelector('.add-task').addEventListener('click', addTask);

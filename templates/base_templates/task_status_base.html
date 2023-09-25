@@ -1,0 +1,5 @@
+{% if task.status %}
+    <a href="{{task.get_absolute_url}}" class="fw-semibold d-block text-success">{{ task.title }}✔️</a>
+    {% else %}
+    <a href="{{task.get_absolute_url}}" class="fw-semibold d-block text-light">{{ task.title }}</a>
+{% endif %}

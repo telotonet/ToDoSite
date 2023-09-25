@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container"> <!-- Обернем навбар в контейнер для центрирования -->
+        <a class="navbar-brand" href="{% url 'tasks' %}">ToDoSite</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto"> <!-- Используем класс mx-auto для центрирования навбара -->
+                {% if request.user.is_authenticated %}
+                <li class="nav-item ml-2">
+                    <a class="nav-link text-success" href="{% url 'create' %}">Создать</a>
+                </li>
+                <li class="nav-item ml-2">
+                    <a class="nav-link text-danger" href="{% url 'logout' %}">Выйти</a>
+                </li>
+                <li class="nav-item ml-2">
+                    <a class="nav-link" disabled>{{request.user.username}}</a>
+                </li>
+                {% else %}
+                <li class="nav-item ml-2">
+                    <a class="nav-link" href="{% url 'login' %}">Войти</a>
+                </li>
+                <li class="nav-item ml-2">
+                    <a class="nav-link" href="{% url 'register' %}">Регистрация</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

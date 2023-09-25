@@ -1,0 +1,9 @@
+{% extends 'base_templates/base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Авторизироваться</button>
+</form>
+{% endblock %}

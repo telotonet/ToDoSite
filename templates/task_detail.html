@@ -1,0 +1,42 @@
+{% extends 'base_templates/base.html' %}
+
+
+{% block content %}
+  <h2>
+    {% include 'base_templates/task_status_base.html' with task=task %}
+  </h2>
+  {% if task.description %}
+    <p class="mb-5">{{task.description}}</p>
+  {% else %}
+    <p class="fs-5 fw-light">Без описания...</p>
+  {% endif %}
+
+  <div class="d-flex justify-content-between">
+    <p class="text-primary fw-light lh-1">Created: {{task.created_at|date:'d M Y h:i'}}</p>
+
+    {% if task.task_list %}
+      <a href="{{task.task_list.get_absolute_url}}" class="btn btn-outline-primary text-light fw-light lh-1 ">{{task.task_list}}</a>
+    {% elif task.parent_task %}
+      <a href="{{task.parent_task.get_absolute_url}}" class="btn btn-outline-primary text-light fw-light lh-1 ">{{task.parent_task}}</a>
+    {% endif %}
+  </div>
+
+  {% if task.due_at %}
+    <p class="text-warning fw-light lh-1 mb-4">Expired: {{task.due_at|date:'d M Y h:i'}}</p>
+  {% endif %}
+  <div class="d-flex justify-content-between mt-4">
+    <div class="d-grid gap-2 d-md-block">
+      {% if not task.status %}
+        <a href="{% url 'changestatus' task.pk %}" class="btn btn-success mb-4">Сделано</a>
+      {% endif %}
+      <a href="{% url 'update' task.pk %}" class="btn btn-warning mb-4">Редактировать</a>
+    </div>
+    <div class="">
+      <a href="{% url 'delete_task' task.pk %}" class="btn btn-danger mb-4">Удалить</a>
+    </div>
+  </div>
+  {% if task.sub_tasks.all %}
+    <p>Подзадачи:</p>
+    {% include 'base_templates/task_detail_base.html' with tasks=task.sub_tasks.all %}
+  {% endif %}
+{% endblock %}

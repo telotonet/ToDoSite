@@ -1,17 +1,39 @@
 body {
-    font-size: 18px;
-    font-weight: bold;
-    color: white;
-  }
-  body {
-    background-color: #333;
-  }
-  .navbar {
-    background-color: #222;
-  }
-  .navbar-dark .navbar-nav .nav-link {
-    color: white;
-  }
-  .task-input {
-    margin-bottom: 15px;
-  }
+  font-size: 18px;
+  font-weight: semibold;
+  color: white;
+}
+body {
+  background-color: #333;
+}
+.navbar {
+  background-color: #222;
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+}
+.task-input {
+  margin-bottom: 15px;
+}
+#container a {
+  position: relative; /* Устанавливаем позицию для создания псевдоэлемента */
+  text-decoration: none;
+}
+
+#container a::before {
+  content: "";
+  position: absolute; /* Позиционируем псевдоэлемент абсолютно */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  border-radius: 3px;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+#container a:hover::before {
+  opacity: 1;
+  background-color: #00000040;
+}

@@ -1,0 +1,14 @@
+{% extends 'base_templates/base.html' %}
+
+{% block content %}
+<title>{{ list.title }}</title>
+    {% include 'base_templates/task_detail_base.html' with tasks=list.tasks.all %}
+<div class="d-flex justify-content-between mt-4">
+    <div class="d-grid gap-2 d-md-block">
+    </div>
+    <div class="">
+        <a href="{% url 'delete_list' list.pk %}" class="btn btn-danger mb-4">Удалить список</a>
+    </div>
+</div>
+{% endblock %}
+

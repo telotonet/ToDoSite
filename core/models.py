@@ -6,19 +6,21 @@ User = get_user_model()
 
 
 class List(models.Model):
-    name = models.CharField(max_length=255, default='Список без названия', verbose_name='Список задач', blank=True, null=True)
+    title = models.CharField(max_length=255, default='Список без названия', verbose_name='Список задач', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
+    # category = models.CharField(max_length=255, blank=True, verbose_name='Категория')
     user = models.ForeignKey(User, on_delete=models.CASCADE, )
     def __str__(self):
-        return self.name
+        return self.title or ''
     def get_absolute_url(self):
-        return reverse('list', kwargs={'id':self.id})
+        return reverse('list', kwargs={'pk':self.pk, })
     class Meta:
         verbose_name = 'Список задач'
         verbose_name_plural = 'Списки задач'
 
 class Task(models.Model):
     title = models.CharField(max_length=255, default='Задача без названия', verbose_name='Задача', blank=True, null=True)
-    description = models.TextField(blank=True, verbose_name='Задача')
+    description = models.TextField(blank=True, verbose_name='Описание')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')
     due_at  = models.DateTimeField(blank=True, null=True, verbose_name='Дата завершения')
     # category = models.CharField(max_length=255, blank=True, verbose_name='Категория')
@@ -29,9 +31,10 @@ class Task(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, )
 
     def __str__(self):
-        return self.title
+        return self.title or ''
     def get_absolute_url(self):
-        return reverse('task', kwargs={'id':self.id})
+        return reverse('task', kwargs={'pk':self.pk, })
     class Meta:
         verbose_name = 'Задача'
         verbose_name_plural = 'Задачи'
+        ordering = ['created_at', 'title']

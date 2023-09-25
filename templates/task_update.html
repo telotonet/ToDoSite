@@ -1,0 +1,66 @@
+{% extends "base_templates/base.html" %}
+
+{% block content %}
+  <h2>Редактировать задачу</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+  <h3>Подзадачи</h3>
+    <ul id="task-fields">
+        {{ formset.management_form }}
+        {% for form in formset.forms %}
+            <div class="task-form input-group mb-3">
+                {{ form.id }}
+                {{ form.title }}
+            </div>
+        {% endfor %}
+    </ul>
+    <button type="button" class="btn btn-sm btn-success d-block mb-4" id="add-task-button">Добавить подзадачу</button>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const addTaskButton = document.getElementById('add-task-button');
+    const taskFieldsContainer = document.getElementById('task-fields');
+    const totalForms = document.getElementById('id_form-TOTAL_FORMS');
+    let formCount = taskFieldsContainer.querySelectorAll('input[id^="id_form-"][type="text"]').length;
+
+    addTaskButton.addEventListener('click', function () {
+        const newForm = document.createElement('div');
+        newForm.className = 'task-form input-group';
+        console.log(formCount)
+        const taskForm = `
+            <div class="input-group mb-3">
+                <input type="text" name="form-${formCount}-title" maxlength="255" class="form-control form-control-sm" placeholder="Введите название задачи" id="id_form-${formCount}-title">
+                <input type="checkbox" style='display: none' name="form-${formCount}-DELETE" id="id_form-${formCount}-DELETE" class="delete-checkbox">
+                <label class="btn btn-danger delete-button" for="id_form-${formCount}-DELETE">x</label>
+            </div>
+        `;
+
+        newForm.innerHTML = taskForm;
+
+        taskFieldsContainer.appendChild(newForm);
+        formCount++;
+        totalForms.value = formCount;
+
+        var deleteButtons = document.querySelectorAll('.delete-button');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const formIndex = this.getAttribute('for').replace('id_form-', '').replace('-DELETE', '');
+                const formToDelete = document.querySelector(`#id_form-${formIndex}-title`);
+                if (formToDelete) {
+                    formToDelete.parentNode.style.display = 'none';
+                    const checkbox = document.querySelector(`#id_form-${formIndex}-DELETE`);
+                }
+                formCount--;
+            });
+        });
+
+    });
+
+});
+</script>
+{% endblock %}
